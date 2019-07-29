@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const URL = 'https://enigmatic-cliffs-25405.herokuapp.com/menu';
+
+class App extends Component {
+  state={
+    categories:['drinks','dishes', 'deserts', 'special'],
+    active:'drinks',
+    menu:null
+  };
+  /* Promise
+  componentDidMount(){
+    // 1. uzklausa i serveri
+    axios.get(URL).then((response)=>{
+        console.log(response)
+    });
+    // 2. update state
+  }]
+  */
+
+  // async await
+  // isorine funk. pasymima kaip asinchronine (async)
+  // veiksmas kuris bus veluos pazymimas su zodziu await
+
+  componentDidMount = async ()=>{
+    const response = await axios.get(URL);
+    console.log(response)
+    this.setState({menu:response.data.menu})
+  };
+
+
+
+  switchCategory =(i)=>{
+      this.setState({active:i})
+  };
+
+  render() {
+    return (
+      <div>
+        <Header/>
+        <Menu active={this.state.active}
+              switchCategory={this.switchCategory}
+              menu={this.state.menu}
+              categories={this.state.categories}/>
+      </div>
+    );
+  }
 }
 
 export default App;
