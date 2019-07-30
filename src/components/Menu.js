@@ -21,7 +21,9 @@ const Menu = (props) => {
 
   const menuItems = props.menu && props.menu[props.active].map((item,i)=>{
       return (
-        <li key={i}>{item.name}<span>{item.price}€</span></li>
+        <li key={i} onClick={()=>props.addOrder(item)}>
+          {item.name}<span>{item.price}€</span>
+        </li>
       )
   });
 
