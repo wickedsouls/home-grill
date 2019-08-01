@@ -7,6 +7,8 @@ const Orders = (props) => {
                     orders={props.orders}
                     key={i}
                     index={i}
+                    deleteOrder={props.deleteOrder}
+                    checkOut={props.checkOut}
                     activeTable={props.activeTable}
                     switchTable={props.switchTable}/>
   });
